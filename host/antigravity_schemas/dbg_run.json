@@ -1,0 +1,15 @@
+{
+  "name": "dbg_run",
+  "description": "Continue execution. Blocks until a debug event or the timeout; timeout=0 uses the default.",
+  "parameters": {
+    "properties": {
+      "timeout": {
+        "default": 0,
+        "title": "Timeout",
+        "type": "number"
+      }
+    },
+    "title": "dbg_runArguments",
+    "type": "object"
+  }
+}

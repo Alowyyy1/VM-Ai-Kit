@@ -1,0 +1,17 @@
+{
+  "name": "dbg_sections",
+  "description": "Module/section info for the module containing an address.",
+  "parameters": {
+    "properties": {
+      "address": {
+        "title": "Address",
+        "type": "string"
+      }
+    },
+    "required": [
+      "address"
+    ],
+    "title": "dbg_sectionsArguments",
+    "type": "object"
+  }
+}

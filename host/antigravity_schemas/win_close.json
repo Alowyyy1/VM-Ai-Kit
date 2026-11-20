@@ -1,0 +1,17 @@
+{
+  "name": "win_close",
+  "description": "Post WM_CLOSE to a window (graceful close).",
+  "parameters": {
+    "properties": {
+      "hwnd": {
+        "title": "Hwnd",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "hwnd"
+    ],
+    "title": "win_closeArguments",
+    "type": "object"
+  }
+}

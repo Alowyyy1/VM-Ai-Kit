@@ -1,0 +1,9 @@
+{
+  "name": "dbg_threads",
+  "description": "Threads of the debuggee.",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_threadsArguments",
+    "type": "object"
+  }
+}

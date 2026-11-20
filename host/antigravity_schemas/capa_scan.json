@@ -1,0 +1,27 @@
+{
+  "name": "capa_scan",
+  "description": "Analyze binary capabilities with Mandiant capa using bundled 1,000+ rules.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "timeout": {
+        "default": 300,
+        "title": "Timeout",
+        "type": "number"
+      },
+      "json_format": {
+        "default": true,
+        "title": "Json Format",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "capa_scanArguments",
+    "type": "object"
+  }
+}

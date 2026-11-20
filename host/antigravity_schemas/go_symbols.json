@@ -1,0 +1,22 @@
+{
+  "name": "go_symbols",
+  "description": "Extract Go language symbols, packages, functions, and types from stripped Go binaries using GoReSym.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "timeout": {
+        "default": 60,
+        "title": "Timeout",
+        "type": "number"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "go_symbolsArguments",
+    "type": "object"
+  }
+}

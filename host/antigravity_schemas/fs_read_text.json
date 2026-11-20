@@ -1,0 +1,32 @@
+{
+  "name": "fs_read_text",
+  "description": "Read a text file (or slice of it). Use offset to page through large files.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "offset": {
+        "default": 0,
+        "title": "Offset",
+        "type": "integer"
+      },
+      "max_bytes": {
+        "default": 200000,
+        "title": "Max Bytes",
+        "type": "integer"
+      },
+      "encoding": {
+        "default": "utf-8",
+        "title": "Encoding",
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "fs_read_textArguments",
+    "type": "object"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "fs_zip",
+  "description": "Create a .zip from a file or directory.",
+  "parameters": {
+    "properties": {
+      "src": {
+        "title": "Src",
+        "type": "string"
+      },
+      "dst": {
+        "title": "Dst",
+        "type": "string"
+      },
+      "include_root": {
+        "default": false,
+        "title": "Include Root",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "src",
+      "dst"
+    ],
+    "title": "fs_zipArguments",
+    "type": "object"
+  }
+}

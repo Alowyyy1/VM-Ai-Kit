@@ -1,0 +1,22 @@
+{
+  "name": "input_type",
+  "description": "Type text as Unicode keystrokes into the focused window (works with any layout).",
+  "parameters": {
+    "properties": {
+      "text": {
+        "title": "Text",
+        "type": "string"
+      },
+      "interval": {
+        "default": 0.0,
+        "title": "Interval",
+        "type": "number"
+      }
+    },
+    "required": [
+      "text"
+    ],
+    "title": "input_typeArguments",
+    "type": "object"
+  }
+}

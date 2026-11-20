@@ -1,0 +1,19 @@
+// ========================================================
+// x64dbg Script: Autodump after unpack (VMProtect / packers)
+// ========================================================
+// Sets hardware breakpoints on memory protection APIs and dumps
+// the unpacked PE once the entry point / unpack routine executes.
+
+log "[*] Starting VMProtect / Packer Unpack Script"
+
+// Clear all previous breakpoints
+bphc
+bc
+
+// Break on VirtualProtect in kernel32 / kernelbase
+bph VirtualProtect, 0, x
+bph VirtualAlloc, 0, x
+
+log "[+] Hardware breakpoints set on VirtualProtect & VirtualAlloc"
+log "[+] Run the process (F9). When VirtualProtect sets PAGE_EXECUTE_READWRITE or PAGE_EXECUTE_READ,"
+log "[+] inspect the destination address and dump via Scylla."

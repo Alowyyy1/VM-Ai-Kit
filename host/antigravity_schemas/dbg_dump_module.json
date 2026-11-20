@@ -1,0 +1,32 @@
+{
+  "name": "dbg_dump_module",
+  "description": "Dump a loaded module to disk (unpacking) and optionally rebuild the IAT.\n\n        Run it while the process is paused after the packer restored the original\n        sections. For VMProtect targets: break at OEP, then dump + fix_iat.\n        ",
+  "parameters": {
+    "properties": {
+      "module": {
+        "title": "Module",
+        "type": "string"
+      },
+      "out_file": {
+        "title": "Out File",
+        "type": "string"
+      },
+      "fix_iat": {
+        "default": false,
+        "title": "Fix Iat",
+        "type": "boolean"
+      },
+      "oep": {
+        "default": "",
+        "title": "Oep",
+        "type": "string"
+      }
+    },
+    "required": [
+      "module",
+      "out_file"
+    ],
+    "title": "dbg_dump_moduleArguments",
+    "type": "object"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "dbg_callstack",
+  "description": "Call stack of the current thread.",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_callstackArguments",
+    "type": "object"
+  }
+}

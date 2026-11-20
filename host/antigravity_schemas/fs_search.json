@@ -1,0 +1,44 @@
+{
+  "name": "fs_search",
+  "description": "Find files by name glob and/or text content under a root directory.",
+  "parameters": {
+    "properties": {
+      "root": {
+        "title": "Root",
+        "type": "string"
+      },
+      "name_pattern": {
+        "default": "*",
+        "title": "Name Pattern",
+        "type": "string"
+      },
+      "content": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Content"
+      },
+      "max_results": {
+        "default": 200,
+        "title": "Max Results",
+        "type": "integer"
+      },
+      "max_file_mb": {
+        "default": 16,
+        "title": "Max File Mb",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "root"
+    ],
+    "title": "fs_searchArguments",
+    "type": "object"
+  }
+}

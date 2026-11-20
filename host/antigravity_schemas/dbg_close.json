@@ -1,0 +1,9 @@
+{
+  "name": "dbg_close",
+  "description": "Close x64dbg (all instances).",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_closeArguments",
+    "type": "object"
+  }
+}

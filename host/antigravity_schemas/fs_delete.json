@@ -1,0 +1,22 @@
+{
+  "name": "fs_delete",
+  "description": "Delete a file, or a directory with recursive=true.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "recursive": {
+        "default": false,
+        "title": "Recursive",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "fs_deleteArguments",
+    "type": "object"
+  }
+}

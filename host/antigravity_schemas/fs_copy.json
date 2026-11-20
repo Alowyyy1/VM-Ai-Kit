@@ -1,0 +1,27 @@
+{
+  "name": "fs_copy",
+  "description": "Copy a file or directory tree.",
+  "parameters": {
+    "properties": {
+      "src": {
+        "title": "Src",
+        "type": "string"
+      },
+      "dst": {
+        "title": "Dst",
+        "type": "string"
+      },
+      "overwrite": {
+        "default": false,
+        "title": "Overwrite",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "src",
+      "dst"
+    ],
+    "title": "fs_copyArguments",
+    "type": "object"
+  }
+}

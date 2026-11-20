@@ -1,0 +1,32 @@
+{
+  "name": "decompile_dotnet",
+  "description": "Decompile .NET assemblies (C#/VB/IL) to C# pseudocode using dnSpy.Console.\n        Pass type_name to decompile a specific class to stdout, or output_dir to export the entire project.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "type_name": {
+        "default": "",
+        "title": "Type Name",
+        "type": "string"
+      },
+      "output_dir": {
+        "default": "",
+        "title": "Output Dir",
+        "type": "string"
+      },
+      "timeout": {
+        "default": 180,
+        "title": "Timeout",
+        "type": "number"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "decompile_dotnetArguments",
+    "type": "object"
+  }
+}

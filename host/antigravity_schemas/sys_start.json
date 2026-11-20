@@ -1,0 +1,49 @@
+{
+  "name": "sys_start",
+  "description": "Launch an executable. Returns pid; with detached=true the agent does not track it.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "args": {
+        "default": "",
+        "title": "Args",
+        "type": "string"
+      },
+      "cwd": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Cwd"
+      },
+      "hidden": {
+        "default": false,
+        "title": "Hidden",
+        "type": "boolean"
+      },
+      "detached": {
+        "default": false,
+        "title": "Detached",
+        "type": "boolean"
+      },
+      "wait_seconds": {
+        "default": 2.0,
+        "title": "Wait Seconds",
+        "type": "number"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "sys_startArguments",
+    "type": "object"
+  }
+}

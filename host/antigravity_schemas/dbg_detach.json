@@ -1,0 +1,9 @@
+{
+  "name": "dbg_detach",
+  "description": "Detach from the current target (leaves the process running).",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_detachArguments",
+    "type": "object"
+  }
+}

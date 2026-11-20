@@ -1,0 +1,54 @@
+{
+  "name": "fs_write_bytes",
+  "description": "Write raw bytes (or a chunk). modes: overwrite | append | patch (patch uses offset).\n\n        Chunked upload: call with mode=\"patch\", increasing offset, ~3 MB per call; pass\n        expect_sha256 on the final call to verify the assembled file.\n        ",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "data": {
+        "title": "Data",
+        "type": "string"
+      },
+      "format": {
+        "default": "base64",
+        "title": "Format",
+        "type": "string"
+      },
+      "mode": {
+        "default": "overwrite",
+        "title": "Mode",
+        "type": "string"
+      },
+      "offset": {
+        "default": 0,
+        "title": "Offset",
+        "type": "integer"
+      },
+      "create_dirs": {
+        "default": true,
+        "title": "Create Dirs",
+        "type": "boolean"
+      },
+      "expect_sha256": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Expect Sha256"
+      }
+    },
+    "required": [
+      "path",
+      "data"
+    ],
+    "title": "fs_write_bytesArguments",
+    "type": "object"
+  }
+}

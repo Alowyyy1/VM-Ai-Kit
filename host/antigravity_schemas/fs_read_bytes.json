@@ -1,0 +1,32 @@
+{
+  "name": "fs_read_bytes",
+  "description": "Read raw bytes. format: base64 (default) | hex | text. Chunk large files with offset.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "offset": {
+        "default": 0,
+        "title": "Offset",
+        "type": "integer"
+      },
+      "length": {
+        "default": 262144,
+        "title": "Length",
+        "type": "integer"
+      },
+      "format": {
+        "default": "base64",
+        "title": "Format",
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "fs_read_bytesArguments",
+    "type": "object"
+  }
+}

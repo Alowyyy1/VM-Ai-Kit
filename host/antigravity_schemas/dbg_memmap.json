@@ -1,0 +1,15 @@
+{
+  "name": "dbg_memmap",
+  "description": "Memory map of the target, or the region containing a specific address.",
+  "parameters": {
+    "properties": {
+      "address": {
+        "default": "",
+        "title": "Address",
+        "type": "string"
+      }
+    },
+    "title": "dbg_memmapArguments",
+    "type": "object"
+  }
+}

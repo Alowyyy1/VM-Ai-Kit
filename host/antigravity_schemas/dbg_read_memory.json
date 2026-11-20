@@ -1,0 +1,22 @@
+{
+  "name": "dbg_read_memory",
+  "description": "Read target memory at an address/expression (returns the plugin's hex/ascii dump).",
+  "parameters": {
+    "properties": {
+      "address": {
+        "title": "Address",
+        "type": "string"
+      },
+      "size": {
+        "default": 256,
+        "title": "Size",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "address"
+    ],
+    "title": "dbg_read_memoryArguments",
+    "type": "object"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "pe_info",
+  "description": "Deep PE inspection: headers, sections, entropy, imports/exports, TLS, resources,\n        overlay, rich header, packer heuristics (VMProtect/UPX markers, RawSize=0 sections).",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "pe_infoArguments",
+    "type": "object"
+  }
+}

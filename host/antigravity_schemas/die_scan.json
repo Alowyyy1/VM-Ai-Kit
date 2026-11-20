@@ -1,0 +1,32 @@
+{
+  "name": "die_scan",
+  "description": "Scan a binary with Detect It Easy (DIE) to identify compiler, linker, packer, protector,\n        language, libraries, and optionally section entropy.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "deep": {
+        "default": true,
+        "title": "Deep",
+        "type": "boolean"
+      },
+      "show_entropy": {
+        "default": false,
+        "title": "Show Entropy",
+        "type": "boolean"
+      },
+      "timeout": {
+        "default": 60,
+        "title": "Timeout",
+        "type": "number"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "die_scanArguments",
+    "type": "object"
+  }
+}

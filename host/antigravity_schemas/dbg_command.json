@@ -1,0 +1,22 @@
+{
+  "name": "dbg_command",
+  "description": "Run any x64dbg command, e.g. 'bp MessageBoxW', 'run', 'dump rax', 'log \"hi\"'.",
+  "parameters": {
+    "properties": {
+      "command": {
+        "title": "Command",
+        "type": "string"
+      },
+      "timeout": {
+        "default": 120,
+        "title": "Timeout",
+        "type": "number"
+      }
+    },
+    "required": [
+      "command"
+    ],
+    "title": "dbg_commandArguments",
+    "type": "object"
+  }
+}

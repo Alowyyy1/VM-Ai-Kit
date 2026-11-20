@@ -1,0 +1,37 @@
+{
+  "name": "fs_write_text",
+  "description": "Write or append a text file (creates parent directories).",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "content": {
+        "title": "Content",
+        "type": "string"
+      },
+      "append": {
+        "default": false,
+        "title": "Append",
+        "type": "boolean"
+      },
+      "encoding": {
+        "default": "utf-8",
+        "title": "Encoding",
+        "type": "string"
+      },
+      "create_dirs": {
+        "default": true,
+        "title": "Create Dirs",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "path",
+      "content"
+    ],
+    "title": "fs_write_textArguments",
+    "type": "object"
+  }
+}

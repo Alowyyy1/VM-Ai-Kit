@@ -1,0 +1,25 @@
+{
+  "name": "win_list",
+  "description": "List top-level windows (hwnd, title, class, pid, rect) - use with win_focus/input_*.",
+  "parameters": {
+    "properties": {
+      "filter": {
+        "default": "",
+        "title": "Filter",
+        "type": "string"
+      },
+      "visible_only": {
+        "default": true,
+        "title": "Visible Only",
+        "type": "boolean"
+      },
+      "include_empty": {
+        "default": false,
+        "title": "Include Empty",
+        "type": "boolean"
+      }
+    },
+    "title": "win_listArguments",
+    "type": "object"
+  }
+}

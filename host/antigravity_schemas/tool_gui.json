@@ -1,0 +1,32 @@
+{
+  "name": "tool_gui",
+  "description": "Launch a bundled GUI tool detached (pebear, die-gui, procexp, scylla not included).",
+  "parameters": {
+    "properties": {
+      "tool": {
+        "title": "Tool",
+        "type": "string"
+      },
+      "args": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Args"
+      }
+    },
+    "required": [
+      "tool"
+    ],
+    "title": "tool_guiArguments",
+    "type": "object"
+  }
+}

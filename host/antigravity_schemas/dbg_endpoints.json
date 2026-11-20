@@ -1,0 +1,9 @@
+{
+  "name": "dbg_endpoints",
+  "description": "Catalog of the plugin's REST endpoints by area.",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_endpointsArguments",
+    "type": "object"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "dbg_registers",
+  "description": "All CPU registers and flags for the current thread.",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_registersArguments",
+    "type": "object"
+  }
+}

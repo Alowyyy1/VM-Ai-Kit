@@ -1,0 +1,66 @@
+{
+  "name": "sys_exec",
+  "description": "Run a command and capture stdout/stderr/exit code.\n\n        shell: \"cmd\" (default) or \"powershell\". timeout is seconds; on timeout the whole\n        process tree is killed and timed_out=true is returned.\n        ",
+  "parameters": {
+    "properties": {
+      "command": {
+        "title": "Command",
+        "type": "string"
+      },
+      "shell": {
+        "default": "cmd",
+        "title": "Shell",
+        "type": "string"
+      },
+      "cwd": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Cwd"
+      },
+      "timeout": {
+        "default": 120,
+        "title": "Timeout",
+        "type": "integer"
+      },
+      "stdin": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Stdin"
+      },
+      "env": {
+        "anyOf": [
+          {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Env"
+      }
+    },
+    "required": [
+      "command"
+    ],
+    "title": "sys_execArguments",
+    "type": "object"
+  }
+}

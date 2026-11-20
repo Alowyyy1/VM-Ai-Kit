@@ -1,0 +1,34 @@
+{
+  "name": "sys_powershell",
+  "description": "Run a PowerShell script (multi-line is fine) with UTF-8 output.",
+  "parameters": {
+    "properties": {
+      "script": {
+        "title": "Script",
+        "type": "string"
+      },
+      "cwd": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Cwd"
+      },
+      "timeout": {
+        "default": 300,
+        "title": "Timeout",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "script"
+    ],
+    "title": "sys_powershellArguments",
+    "type": "object"
+  }
+}

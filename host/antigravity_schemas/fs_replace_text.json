@@ -1,0 +1,37 @@
+{
+  "name": "fs_replace_text",
+  "description": "Exact substring replacement in a text file (count=0 replaces all).",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "old": {
+        "title": "Old",
+        "type": "string"
+      },
+      "new": {
+        "title": "New",
+        "type": "string"
+      },
+      "count": {
+        "default": 0,
+        "title": "Count",
+        "type": "integer"
+      },
+      "encoding": {
+        "default": "utf-8",
+        "title": "Encoding",
+        "type": "string"
+      }
+    },
+    "required": [
+      "path",
+      "old",
+      "new"
+    ],
+    "title": "fs_replace_textArguments",
+    "type": "object"
+  }
+}

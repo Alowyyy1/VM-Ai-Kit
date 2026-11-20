@@ -1,0 +1,27 @@
+{
+  "name": "pe_hexdump",
+  "description": "Hex + ASCII dump of a file region.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "offset": {
+        "default": 0,
+        "title": "Offset",
+        "type": "integer"
+      },
+      "length": {
+        "default": 256,
+        "title": "Length",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "pe_hexdumpArguments",
+    "type": "object"
+  }
+}

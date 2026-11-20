@@ -1,0 +1,22 @@
+{
+  "name": "dbg_run_to",
+  "description": "Run until the given address (hex or expression).",
+  "parameters": {
+    "properties": {
+      "address": {
+        "title": "Address",
+        "type": "string"
+      },
+      "timeout": {
+        "default": 300,
+        "title": "Timeout",
+        "type": "number"
+      }
+    },
+    "required": [
+      "address"
+    ],
+    "title": "dbg_run_toArguments",
+    "type": "object"
+  }
+}

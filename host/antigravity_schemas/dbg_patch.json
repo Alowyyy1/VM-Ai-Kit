@@ -1,0 +1,22 @@
+{
+  "name": "dbg_patch",
+  "description": "Apply a permanent in-memory patch (tracked by x64dbg so it can be restored).",
+  "parameters": {
+    "properties": {
+      "address": {
+        "title": "Address",
+        "type": "string"
+      },
+      "bytes_hex": {
+        "title": "Bytes Hex",
+        "type": "string"
+      }
+    },
+    "required": [
+      "address",
+      "bytes_hex"
+    ],
+    "title": "dbg_patchArguments",
+    "type": "object"
+  }
+}

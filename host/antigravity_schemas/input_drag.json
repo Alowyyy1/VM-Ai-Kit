@@ -1,0 +1,42 @@
+{
+  "name": "input_drag",
+  "description": "Press, move and release the mouse (drag & drop).",
+  "parameters": {
+    "properties": {
+      "x1": {
+        "title": "X1",
+        "type": "integer"
+      },
+      "y1": {
+        "title": "Y1",
+        "type": "integer"
+      },
+      "x2": {
+        "title": "X2",
+        "type": "integer"
+      },
+      "y2": {
+        "title": "Y2",
+        "type": "integer"
+      },
+      "button": {
+        "default": "left",
+        "title": "Button",
+        "type": "string"
+      },
+      "duration": {
+        "default": 0.3,
+        "title": "Duration",
+        "type": "number"
+      }
+    },
+    "required": [
+      "x1",
+      "y1",
+      "x2",
+      "y2"
+    ],
+    "title": "input_dragArguments",
+    "type": "object"
+  }
+}

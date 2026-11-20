@@ -1,0 +1,17 @@
+{
+  "name": "dbg_attach",
+  "description": "Attach the running debugger to a live process id.",
+  "parameters": {
+    "properties": {
+      "pid": {
+        "title": "Pid",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "pid"
+    ],
+    "title": "dbg_attachArguments",
+    "type": "object"
+  }
+}

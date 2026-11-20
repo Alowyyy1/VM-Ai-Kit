@@ -1,0 +1,22 @@
+{
+  "name": "dbg_delete_breakpoint",
+  "description": "Delete a breakpoint by address (optionally restrict to software/hardware/memory).",
+  "parameters": {
+    "properties": {
+      "address": {
+        "title": "Address",
+        "type": "string"
+      },
+      "kind": {
+        "default": "",
+        "title": "Kind",
+        "type": "string"
+      }
+    },
+    "required": [
+      "address"
+    ],
+    "title": "dbg_delete_breakpointArguments",
+    "type": "object"
+  }
+}

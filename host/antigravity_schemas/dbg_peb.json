@@ -1,0 +1,15 @@
+{
+  "name": "dbg_peb",
+  "description": "Read the debuggee PEB (anti-debug relevant fields).",
+  "parameters": {
+    "properties": {
+      "pid": {
+        "default": "",
+        "title": "Pid",
+        "type": "string"
+      }
+    },
+    "title": "dbg_pebArguments",
+    "type": "object"
+  }
+}

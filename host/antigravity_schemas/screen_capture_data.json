@@ -1,0 +1,30 @@
+{
+  "name": "screen_capture_data",
+  "description": "Same as screen_capture but returns JSON (saved path, size, base64) - use for automation.",
+  "parameters": {
+    "properties": {
+      "monitor": {
+        "default": 0,
+        "title": "Monitor",
+        "type": "integer"
+      },
+      "region": {
+        "default": "",
+        "title": "Region",
+        "type": "string"
+      },
+      "scale": {
+        "default": 1.0,
+        "title": "Scale",
+        "type": "number"
+      },
+      "include_base64": {
+        "default": true,
+        "title": "Include Base64",
+        "type": "boolean"
+      }
+    },
+    "title": "screen_capture_dataArguments",
+    "type": "object"
+  }
+}

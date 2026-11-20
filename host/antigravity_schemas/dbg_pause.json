@@ -1,0 +1,9 @@
+{
+  "name": "dbg_pause",
+  "description": "Break into the debugger.",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_pauseArguments",
+    "type": "object"
+  }
+}

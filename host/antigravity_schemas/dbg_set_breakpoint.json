@@ -1,0 +1,47 @@
+{
+  "name": "dbg_set_breakpoint",
+  "description": "Set a breakpoint on an address or symbol (MessageBoxW, 0x401000).\n\n        kind: software | hardware | memory. condition: x64dbg expression (e.g. 'eax==0').\n        log_text: when set the breakpoint logs instead of pausing.\n        ",
+  "parameters": {
+    "properties": {
+      "address": {
+        "title": "Address",
+        "type": "string"
+      },
+      "kind": {
+        "default": "software",
+        "title": "Kind",
+        "type": "string"
+      },
+      "condition": {
+        "default": "",
+        "title": "Condition",
+        "type": "string"
+      },
+      "log_text": {
+        "default": "",
+        "title": "Log Text",
+        "type": "string"
+      },
+      "singleshot": {
+        "default": false,
+        "title": "Singleshot",
+        "type": "boolean"
+      },
+      "hw_type": {
+        "default": "x",
+        "title": "Hw Type",
+        "type": "string"
+      },
+      "hw_size": {
+        "default": "1",
+        "title": "Hw Size",
+        "type": "string"
+      }
+    },
+    "required": [
+      "address"
+    ],
+    "title": "dbg_set_breakpointArguments",
+    "type": "object"
+  }
+}

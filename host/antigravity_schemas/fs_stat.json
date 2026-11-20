@@ -1,0 +1,17 @@
+{
+  "name": "fs_stat",
+  "description": "File/directory metadata: size, timestamps, attributes, sha256 for files.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "fs_statArguments",
+    "type": "object"
+  }
+}

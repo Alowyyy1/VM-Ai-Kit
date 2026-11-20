@@ -1,0 +1,9 @@
+{
+  "name": "sys_info",
+  "description": "Host overview: OS build, CPU, RAM, disks, user/session, privileges, Python and agent version.",
+  "parameters": {
+    "properties": {},
+    "title": "sys_infoArguments",
+    "type": "object"
+  }
+}

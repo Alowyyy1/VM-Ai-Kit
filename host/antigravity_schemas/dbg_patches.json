@@ -1,0 +1,9 @@
+{
+  "name": "dbg_patches",
+  "description": "List applied patches.",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_patchesArguments",
+    "type": "object"
+  }
+}

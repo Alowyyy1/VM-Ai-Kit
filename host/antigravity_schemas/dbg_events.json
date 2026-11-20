@@ -1,0 +1,15 @@
+{
+  "name": "dbg_events",
+  "description": "Recent debugger log events (breakpoint hits, exceptions, module loads).",
+  "parameters": {
+    "properties": {
+      "limit": {
+        "default": 30,
+        "title": "Limit",
+        "type": "integer"
+      }
+    },
+    "title": "dbg_eventsArguments",
+    "type": "object"
+  }
+}

@@ -1,0 +1,24 @@
+# VirtualMachine AI Kit Git Ignore
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Large binaries and archives
+*.zip
+*.7z
+*.7z.*
+*.tar.gz
+*.msi
+*.exe
+installers/python-3.12.10-amd64.exe/
+installers/wheels/
+tools/bin/
+
+# Logs and runtime artifacts
+work/
+cache/
+*.log
+_out*.txt
+.tmp/

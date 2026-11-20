@@ -1,0 +1,27 @@
+{
+  "name": "pe_entropy",
+  "description": "Shannon entropy of a file or slice (>7.5 usually means compressed/encrypted).",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "offset": {
+        "default": 0,
+        "title": "Offset",
+        "type": "integer"
+      },
+      "length": {
+        "default": 0,
+        "title": "Length",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "pe_entropyArguments",
+    "type": "object"
+  }
+}

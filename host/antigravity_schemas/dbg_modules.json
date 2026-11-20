@@ -1,0 +1,9 @@
+{
+  "name": "dbg_modules",
+  "description": "Modules loaded in the debuggee (name, base, size, path).",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_modulesArguments",
+    "type": "object"
+  }
+}

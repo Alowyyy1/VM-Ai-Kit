@@ -1,0 +1,6 @@
+// ========================================================
+// x64dbg Script: Trace String References
+// ========================================================
+log "[*] Scanning memory module for referenced ASCII / Unicode strings..."
+strref
+log "[+] String references populated in References window."

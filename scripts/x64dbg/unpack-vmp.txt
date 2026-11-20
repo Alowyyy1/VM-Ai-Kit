@@ -1,0 +1,11 @@
+// ========================================================
+// x64dbg Script: Unpack VMProtect workflow
+// ========================================================
+// VMProtect allocates code caves and decrypts bytecode handlers.
+// This script breaks on section transitions and memory unlocks.
+
+log "[*] Setting VMProtect transition breakpoints..."
+bph ZwProtectVirtualMemory, 0, x
+bph ZwAllocateVirtualMemory, 0, x
+
+log "[*] Breakpoints armed. Step out (Ctrl+F9) when hit to return to caller."

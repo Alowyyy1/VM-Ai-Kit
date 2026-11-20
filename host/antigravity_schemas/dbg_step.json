@@ -1,0 +1,15 @@
+{
+  "name": "dbg_step",
+  "description": "Single step: kind = into | over | out.",
+  "parameters": {
+    "properties": {
+      "kind": {
+        "default": "into",
+        "title": "Kind",
+        "type": "string"
+      }
+    },
+    "title": "dbg_stepArguments",
+    "type": "object"
+  }
+}

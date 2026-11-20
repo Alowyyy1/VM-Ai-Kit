@@ -1,0 +1,32 @@
+{
+  "host": "0.0.0.0",
+  "port": 37075,
+  "token": "vm_agent_token_980154022847733770_re",
+  "stateless": true,
+  "work_dir": "C:\\AgentKit\\work",
+  "tools_dir": "C:\\AgentKit\\tools\\bin",
+  "x64dbg_dir": "C:\\AgentKit\\tools\\bin\\x64dbg",
+  "x64dbg_host": "127.0.0.1",
+  "x64dbg_port": 27042,
+  "x64dbg_token": "",
+  "allow_roots": [
+    "C:\\AgentKit",
+    "C:\\Analysis",
+    "C:\\d2p191126",
+    "C:\\temp"
+  ],
+  "protected_paths": [
+    "C:\\Windows",
+    "C:\\Program Files",
+    "C:\\Program Files (x86)"
+  ],
+  "allow_protected_writes": false,
+  "read_only": false,
+  "max_chunk_bytes": 3145728,
+  "max_read_bytes": 4194304,
+  "exec_timeout_default": 60,
+  "exec_timeout_max": 1800,
+  "debug_timeout": 600,
+  "log_level": "INFO",
+  "log_keep_days": 7
+}

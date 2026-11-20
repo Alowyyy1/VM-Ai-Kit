@@ -1,0 +1,17 @@
+{
+  "name": "clipboard_set",
+  "description": "Write text to the clipboard.",
+  "parameters": {
+    "properties": {
+      "text": {
+        "title": "Text",
+        "type": "string"
+      }
+    },
+    "required": [
+      "text"
+    ],
+    "title": "clipboard_setArguments",
+    "type": "object"
+  }
+}

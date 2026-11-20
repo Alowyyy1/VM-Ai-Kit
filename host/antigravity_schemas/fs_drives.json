@@ -1,0 +1,9 @@
+{
+  "name": "fs_drives",
+  "description": "List mounted drives with free space.",
+  "parameters": {
+    "properties": {},
+    "title": "fs_drivesArguments",
+    "type": "object"
+  }
+}

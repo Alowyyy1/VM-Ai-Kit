@@ -1,0 +1,47 @@
+{
+  "name": "pe_strings",
+  "description": "Extract ASCII or UTF-16LE strings from a file (offset/length page through big files).",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "min_length": {
+        "default": 6,
+        "title": "Min Length",
+        "type": "integer"
+      },
+      "encoding": {
+        "default": "ascii",
+        "title": "Encoding",
+        "type": "string"
+      },
+      "limit": {
+        "default": 1000,
+        "title": "Limit",
+        "type": "integer"
+      },
+      "search": {
+        "default": "",
+        "title": "Search",
+        "type": "string"
+      },
+      "offset": {
+        "default": 0,
+        "title": "Offset",
+        "type": "integer"
+      },
+      "length": {
+        "default": 0,
+        "title": "Length",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "pe_stringsArguments",
+    "type": "object"
+  }
+}

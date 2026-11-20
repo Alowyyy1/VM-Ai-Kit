@@ -1,0 +1,9 @@
+{
+  "name": "screen_info",
+  "description": "Monitors, virtual-desktop bounds, cursor position and foreground window.",
+  "parameters": {
+    "properties": {},
+    "title": "screen_infoArguments",
+    "type": "object"
+  }
+}

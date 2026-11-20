@@ -1,0 +1,35 @@
+{
+  "name": "fs_list",
+  "description": "List a directory (glob filter, optional recursion), dirs first.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "default": ".",
+        "title": "Path",
+        "type": "string"
+      },
+      "pattern": {
+        "default": "*",
+        "title": "Pattern",
+        "type": "string"
+      },
+      "recursive": {
+        "default": false,
+        "title": "Recursive",
+        "type": "boolean"
+      },
+      "include_dirs": {
+        "default": true,
+        "title": "Include Dirs",
+        "type": "boolean"
+      },
+      "limit": {
+        "default": 500,
+        "title": "Limit",
+        "type": "integer"
+      }
+    },
+    "title": "fs_listArguments",
+    "type": "object"
+  }
+}

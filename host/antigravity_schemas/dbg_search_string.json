@@ -1,0 +1,27 @@
+{
+  "name": "dbg_search_string",
+  "description": "Search for a text string in target memory (encoding: utf8|ascii|unicode).",
+  "parameters": {
+    "properties": {
+      "text": {
+        "title": "Text",
+        "type": "string"
+      },
+      "module": {
+        "default": "",
+        "title": "Module",
+        "type": "string"
+      },
+      "encoding": {
+        "default": "utf8",
+        "title": "Encoding",
+        "type": "string"
+      }
+    },
+    "required": [
+      "text"
+    ],
+    "title": "dbg_search_stringArguments",
+    "type": "object"
+  }
+}

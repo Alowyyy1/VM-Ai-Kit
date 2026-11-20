@@ -1,0 +1,27 @@
+{
+  "name": "fs_unzip",
+  "description": "Extract a .zip (protects against path traversal).",
+  "parameters": {
+    "properties": {
+      "src": {
+        "title": "Src",
+        "type": "string"
+      },
+      "dst": {
+        "title": "Dst",
+        "type": "string"
+      },
+      "overwrite": {
+        "default": true,
+        "title": "Overwrite",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "src",
+      "dst"
+    ],
+    "title": "fs_unzipArguments",
+    "type": "object"
+  }
+}

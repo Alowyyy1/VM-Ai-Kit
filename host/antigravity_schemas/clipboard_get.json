@@ -1,0 +1,9 @@
+{
+  "name": "clipboard_get",
+  "description": "Read the clipboard text.",
+  "parameters": {
+    "properties": {},
+    "title": "clipboard_getArguments",
+    "type": "object"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "proc_modules",
+  "description": "List modules (DLLs) loaded in a process with base addresses - essential for unpacking.",
+  "parameters": {
+    "properties": {
+      "pid": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Pid"
+      },
+      "name": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Name"
+      }
+    },
+    "title": "proc_modulesArguments",
+    "type": "object"
+  }
+}

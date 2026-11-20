@@ -1,0 +1,15 @@
+{
+  "name": "dbg_sections_info",
+  "description": "Section table of a module as seen by the debugger (RVA/size/flags).",
+  "parameters": {
+    "properties": {
+      "module": {
+        "default": "",
+        "title": "Module",
+        "type": "string"
+      }
+    },
+    "title": "dbg_sections_infoArguments",
+    "type": "object"
+  }
+}

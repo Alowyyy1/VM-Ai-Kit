@@ -1,0 +1,22 @@
+{
+  "name": "screen_pixel",
+  "description": "Read the RGB color of one screen pixel.",
+  "parameters": {
+    "properties": {
+      "x": {
+        "title": "X",
+        "type": "integer"
+      },
+      "y": {
+        "title": "Y",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "x",
+      "y"
+    ],
+    "title": "screen_pixelArguments",
+    "type": "object"
+  }
+}

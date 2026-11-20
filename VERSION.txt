@@ -1,0 +1,3 @@
+AgentKit v1.0.0 (Release 2026-11-20)
+Autonomous Reverse-Engineering & Dynamic Analysis VM Agent
+Designed for OpenCode / Antigravity Agentic Debugging

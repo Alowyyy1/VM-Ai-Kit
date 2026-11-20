@@ -1,0 +1,37 @@
+{
+  "name": "tool_run",
+  "description": "Run a bundled CLI tool (die, capa, strings, procdump, handle) with argument list.\n\n        Example: tool_run(\"die\", [\"-j\", \"C:\\\\samples\\\\a.dll\"])\n                 tool_run(\"capa\", [\"C:\\\\samples\\\\a.dll\"])\n        ",
+  "parameters": {
+    "properties": {
+      "tool": {
+        "title": "Tool",
+        "type": "string"
+      },
+      "args": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Args"
+      },
+      "timeout": {
+        "default": 300,
+        "title": "Timeout",
+        "type": "number"
+      }
+    },
+    "required": [
+      "tool"
+    ],
+    "title": "tool_runArguments",
+    "type": "object"
+  }
+}

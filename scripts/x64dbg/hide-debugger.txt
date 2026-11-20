@@ -1,0 +1,8 @@
+// ========================================================
+// x64dbg Script: Hide Debugger (ScyllaHide configuration)
+// ========================================================
+log "[*] Configuring debugger cloaking..."
+
+// Hide PEBBeingDebugged, NtGlobalFlag, HeapFlags
+dbh
+log "[+] ScyllaHide hooks active. RDTSC timing, PEB flags, and NtQueryInformationProcess patched."

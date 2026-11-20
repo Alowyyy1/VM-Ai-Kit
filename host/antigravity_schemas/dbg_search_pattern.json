@@ -1,0 +1,32 @@
+{
+  "name": "dbg_search_pattern",
+  "description": "Search target memory for a byte pattern with wildcards, e.g. '48 8B ?? 48 85 C0'.",
+  "parameters": {
+    "properties": {
+      "pattern": {
+        "title": "Pattern",
+        "type": "string"
+      },
+      "address": {
+        "default": "",
+        "title": "Address",
+        "type": "string"
+      },
+      "size": {
+        "default": "",
+        "title": "Size",
+        "type": "string"
+      },
+      "max_results": {
+        "default": 100,
+        "title": "Max Results",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "pattern"
+    ],
+    "title": "dbg_search_patternArguments",
+    "type": "object"
+  }
+}

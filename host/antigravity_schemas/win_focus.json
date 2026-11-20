@@ -1,0 +1,25 @@
+{
+  "name": "win_focus",
+  "description": "Bring a window to the foreground by hwnd or (partial) title.",
+  "parameters": {
+    "properties": {
+      "hwnd": {
+        "default": 0,
+        "title": "Hwnd",
+        "type": "integer"
+      },
+      "title": {
+        "default": "",
+        "title": "Title",
+        "type": "string"
+      },
+      "exact": {
+        "default": false,
+        "title": "Exact",
+        "type": "boolean"
+      }
+    },
+    "title": "win_focusArguments",
+    "type": "object"
+  }
+}

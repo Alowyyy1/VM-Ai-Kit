@@ -1,0 +1,20 @@
+{
+  "name": "dbg_disasm",
+  "description": "Disassemble instructions at an address/expression.",
+  "parameters": {
+    "properties": {
+      "address": {
+        "default": "cip",
+        "title": "Address",
+        "type": "string"
+      },
+      "count": {
+        "default": 20,
+        "title": "Count",
+        "type": "integer"
+      }
+    },
+    "title": "dbg_disasmArguments",
+    "type": "object"
+  }
+}

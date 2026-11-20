@@ -1,0 +1,25 @@
+{
+  "name": "screen_capture",
+  "description": "Grab the screen as a PNG image (returned inline to the client).\n\n        monitor: 0 = all monitors, 1..N = one monitor (see screen_info).\n        region:  optional 'x,y,width,height' relative to the chosen monitor.\n        scale:   0.5 halves the resolution (fewer tokens), 2.0 zooms in.\n        ",
+  "parameters": {
+    "properties": {
+      "monitor": {
+        "default": 0,
+        "title": "Monitor",
+        "type": "integer"
+      },
+      "region": {
+        "default": "",
+        "title": "Region",
+        "type": "string"
+      },
+      "scale": {
+        "default": 1.0,
+        "title": "Scale",
+        "type": "number"
+      }
+    },
+    "title": "screen_captureArguments",
+    "type": "object"
+  }
+}

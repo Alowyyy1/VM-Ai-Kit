@@ -1,0 +1,17 @@
+{
+  "name": "input_key",
+  "description": "Press a key or chord: 'enter', 'esc', 'ctrl+shift+esc', 'alt+f4', 'win+r'.",
+  "parameters": {
+    "properties": {
+      "combo": {
+        "title": "Combo",
+        "type": "string"
+      }
+    },
+    "required": [
+      "combo"
+    ],
+    "title": "input_keyArguments",
+    "type": "object"
+  }
+}

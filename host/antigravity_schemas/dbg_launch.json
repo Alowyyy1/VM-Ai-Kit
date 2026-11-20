@@ -1,0 +1,32 @@
+{
+  "name": "dbg_launch",
+  "description": "Start x64dbg with a target file loaded and wait for the automation plugin.\n\n        Fails if x64dbg is already running - use dbg_attach or close it first.\n        ",
+  "parameters": {
+    "properties": {
+      "target": {
+        "title": "Target",
+        "type": "string"
+      },
+      "args": {
+        "default": "",
+        "title": "Args",
+        "type": "string"
+      },
+      "x32": {
+        "default": false,
+        "title": "X32",
+        "type": "boolean"
+      },
+      "wait_seconds": {
+        "default": 45,
+        "title": "Wait Seconds",
+        "type": "number"
+      }
+    },
+    "required": [
+      "target"
+    ],
+    "title": "dbg_launchArguments",
+    "type": "object"
+  }
+}

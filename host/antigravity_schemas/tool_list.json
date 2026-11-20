@@ -1,0 +1,9 @@
+{
+  "name": "tool_list",
+  "description": "Bundled tools: x64dbg, ScyllaHide, Scylla, DIE, PE-bear, capa, Sysinternals + their state.",
+  "parameters": {
+    "properties": {},
+    "title": "tool_listArguments",
+    "type": "object"
+  }
+}

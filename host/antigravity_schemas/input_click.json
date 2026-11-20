@@ -1,0 +1,49 @@
+{
+  "name": "input_click",
+  "description": "Click a mouse button, optionally moving to (x, y) first. button: left|right|middle|x1|x2.",
+  "parameters": {
+    "properties": {
+      "x": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "X"
+      },
+      "y": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Y"
+      },
+      "button": {
+        "default": "left",
+        "title": "Button",
+        "type": "string"
+      },
+      "clicks": {
+        "default": 1,
+        "title": "Clicks",
+        "type": "integer"
+      },
+      "interval": {
+        "default": 0.06,
+        "title": "Interval",
+        "type": "number"
+      }
+    },
+    "title": "input_clickArguments",
+    "type": "object"
+  }
+}

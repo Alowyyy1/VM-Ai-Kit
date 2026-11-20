@@ -1,0 +1,44 @@
+{
+  "name": "dbg_api",
+  "description": "Raw passthrough to any x64dbg MCP plugin endpoint, e.g. GET /api/analysis/xrefs_to.\n\n        Call dbg_endpoints() for the full catalog. This unlocks anything without a wrapper.\n        ",
+  "parameters": {
+    "properties": {
+      "method": {
+        "title": "Method",
+        "type": "string"
+      },
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "params": {
+        "anyOf": [
+          {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Params"
+      },
+      "body": {
+        "default": null,
+        "title": "Body"
+      },
+      "timeout": {
+        "default": 120,
+        "title": "Timeout",
+        "type": "number"
+      }
+    },
+    "required": [
+      "method",
+      "path"
+    ],
+    "title": "dbg_apiArguments",
+    "type": "object"
+  }
+}

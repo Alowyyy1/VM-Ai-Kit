@@ -1,0 +1,20 @@
+{
+  "name": "agent_logs",
+  "description": "Tail the agent log (work_dir/agent.log). level filters by substring, e.g. ERROR.",
+  "parameters": {
+    "properties": {
+      "lines": {
+        "default": 100,
+        "title": "Lines",
+        "type": "integer"
+      },
+      "level": {
+        "default": "",
+        "title": "Level",
+        "type": "string"
+      }
+    },
+    "title": "agent_logsArguments",
+    "type": "object"
+  }
+}

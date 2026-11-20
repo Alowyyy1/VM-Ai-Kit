@@ -1,0 +1,9 @@
+{
+  "name": "agent_selftest",
+  "description": "Verify the installation end-to-end: deps, permissions, tools, screenshot, clipboard, debugger.",
+  "parameters": {
+    "properties": {},
+    "title": "agent_selftestArguments",
+    "type": "object"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "dbg_hide_debugger",
+  "description": "Ask the plugin to hide the debugger (PEB BeingDebugged, NtGlobalFlag, heap flags).",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_hide_debuggerArguments",
+    "type": "object"
+  }
+}

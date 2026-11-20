@@ -1,0 +1,20 @@
+{
+  "name": "input_scroll",
+  "description": "Scroll the wheel at the current cursor position (positive dy = up).",
+  "parameters": {
+    "properties": {
+      "dy": {
+        "default": -3,
+        "title": "Dy",
+        "type": "integer"
+      },
+      "dx": {
+        "default": 0,
+        "title": "Dx",
+        "type": "integer"
+      }
+    },
+    "title": "input_scrollArguments",
+    "type": "object"
+  }
+}

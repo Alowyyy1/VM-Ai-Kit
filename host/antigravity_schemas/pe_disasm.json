@@ -1,0 +1,37 @@
+{
+  "name": "pe_disasm",
+  "description": "Disassemble a file at a raw offset or RVA (capstone, x86/x64).",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "offset": {
+        "default": 0,
+        "title": "Offset",
+        "type": "integer"
+      },
+      "rva": {
+        "default": 0,
+        "title": "Rva",
+        "type": "integer"
+      },
+      "count": {
+        "default": 30,
+        "title": "Count",
+        "type": "integer"
+      },
+      "bits": {
+        "default": 64,
+        "title": "Bits",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "pe_disasmArguments",
+    "type": "object"
+  }
+}

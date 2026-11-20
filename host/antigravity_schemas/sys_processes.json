@@ -1,0 +1,37 @@
+{
+  "name": "sys_processes",
+  "description": "List processes (pid, name, cpu%, rss, path, user) sorted by cpu/mem/pid/name.",
+  "parameters": {
+    "properties": {
+      "filter": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Filter"
+      },
+      "sort_by": {
+        "default": "cpu",
+        "title": "Sort By",
+        "type": "string"
+      },
+      "limit": {
+        "default": 60,
+        "title": "Limit",
+        "type": "integer"
+      },
+      "with_paths": {
+        "default": true,
+        "title": "With Paths",
+        "type": "boolean"
+      }
+    },
+    "title": "sys_processesArguments",
+    "type": "object"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "agent_config",
+  "description": "Active agent configuration with secrets redacted.",
+  "parameters": {
+    "properties": {},
+    "title": "agent_configArguments",
+    "type": "object"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "dbg_breakpoints",
+  "description": "List all breakpoints with hit counts.",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_breakpointsArguments",
+    "type": "object"
+  }
+}

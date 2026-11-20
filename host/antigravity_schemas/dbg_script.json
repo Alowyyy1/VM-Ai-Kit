@@ -1,0 +1,17 @@
+{
+  "name": "dbg_script",
+  "description": "Execute an x64dbg script file (.txt/.x64dbg script) as a batch of commands.",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "dbg_scriptArguments",
+    "type": "object"
+  }
+}

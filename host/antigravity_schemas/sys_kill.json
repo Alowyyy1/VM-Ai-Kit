@@ -1,0 +1,39 @@
+{
+  "name": "sys_kill",
+  "description": "Terminate by pid or image name (all matches).",
+  "parameters": {
+    "properties": {
+      "pid": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Pid"
+      },
+      "name": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Name"
+      },
+      "force": {
+        "default": true,
+        "title": "Force",
+        "type": "boolean"
+      }
+    },
+    "title": "sys_killArguments",
+    "type": "object"
+  }
+}

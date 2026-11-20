@@ -1,0 +1,15 @@
+{
+  "name": "agent_guide",
+  "description": "Cheat-sheet for driving this VM: overview | unpack | dota | transfer | screen.",
+  "parameters": {
+    "properties": {
+      "topic": {
+        "default": "overview",
+        "title": "Topic",
+        "type": "string"
+      }
+    },
+    "title": "agent_guideArguments",
+    "type": "object"
+  }
+}

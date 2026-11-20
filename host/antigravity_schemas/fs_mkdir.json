@@ -1,0 +1,17 @@
+{
+  "name": "fs_mkdir",
+  "description": "Create a directory (parents included).",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "fs_mkdirArguments",
+    "type": "object"
+  }
+}

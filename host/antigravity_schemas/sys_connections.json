@@ -1,0 +1,20 @@
+{
+  "name": "sys_connections",
+  "description": "TCP/UDP endpoints with owning process (useful to spot C2 / phone-home traffic).",
+  "parameters": {
+    "properties": {
+      "limit": {
+        "default": 200,
+        "title": "Limit",
+        "type": "integer"
+      },
+      "listening_only": {
+        "default": false,
+        "title": "Listening Only",
+        "type": "boolean"
+      }
+    },
+    "title": "sys_connectionsArguments",
+    "type": "object"
+  }
+}

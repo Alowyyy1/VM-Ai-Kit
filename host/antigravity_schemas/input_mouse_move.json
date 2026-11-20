@@ -1,0 +1,22 @@
+{
+  "name": "input_mouse_move",
+  "description": "Move the mouse cursor to absolute screen coordinates (physical pixels).",
+  "parameters": {
+    "properties": {
+      "x": {
+        "title": "X",
+        "type": "integer"
+      },
+      "y": {
+        "title": "Y",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "x",
+      "y"
+    ],
+    "title": "input_mouse_moveArguments",
+    "type": "object"
+  }
+}

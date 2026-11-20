@@ -1,0 +1,51 @@
+{
+  "name": "win_move",
+  "description": "Move/resize a window (keeps current size when width/height are omitted).",
+  "parameters": {
+    "properties": {
+      "hwnd": {
+        "title": "Hwnd",
+        "type": "integer"
+      },
+      "x": {
+        "title": "X",
+        "type": "integer"
+      },
+      "y": {
+        "title": "Y",
+        "type": "integer"
+      },
+      "width": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Width"
+      },
+      "height": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Height"
+      }
+    },
+    "required": [
+      "hwnd",
+      "x",
+      "y"
+    ],
+    "title": "win_moveArguments",
+    "type": "object"
+  }
+}

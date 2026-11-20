@@ -1,0 +1,9 @@
+{
+  "name": "dbg_status",
+  "description": "Is x64dbg running, is the plugin reachable, what is the debugger state, which target is loaded.",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_statusArguments",
+    "type": "object"
+  }
+}

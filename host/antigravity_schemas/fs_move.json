@@ -1,0 +1,27 @@
+{
+  "name": "fs_move",
+  "description": "Move/rename a file or directory.",
+  "parameters": {
+    "properties": {
+      "src": {
+        "title": "Src",
+        "type": "string"
+      },
+      "dst": {
+        "title": "Dst",
+        "type": "string"
+      },
+      "overwrite": {
+        "default": false,
+        "title": "Overwrite",
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "src",
+      "dst"
+    ],
+    "title": "fs_moveArguments",
+    "type": "object"
+  }
+}

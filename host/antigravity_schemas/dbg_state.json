@@ -1,0 +1,9 @@
+{
+  "name": "dbg_state",
+  "description": "Current debugger state (paused/running, cip, last event, thread).",
+  "parameters": {
+    "properties": {},
+    "title": "dbg_stateArguments",
+    "type": "object"
+  }
+}

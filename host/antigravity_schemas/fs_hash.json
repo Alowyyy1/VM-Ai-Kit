@@ -1,0 +1,22 @@
+{
+  "name": "fs_hash",
+  "description": "Hash a file: sha256 (default), sha1, md5, ...",
+  "parameters": {
+    "properties": {
+      "path": {
+        "title": "Path",
+        "type": "string"
+      },
+      "algo": {
+        "default": "sha256",
+        "title": "Algo",
+        "type": "string"
+      }
+    },
+    "required": [
+      "path"
+    ],
+    "title": "fs_hashArguments",
+    "type": "object"
+  }
+}
