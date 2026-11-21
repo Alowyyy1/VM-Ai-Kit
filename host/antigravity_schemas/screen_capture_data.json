@@ -22,6 +22,16 @@
         "default": true,
         "title": "Include Base64",
         "type": "boolean"
+      },
+      "grid": {
+        "default": false,
+        "title": "Grid",
+        "type": "boolean"
+      },
+      "grid_step": {
+        "default": 100,
+        "title": "Grid Step",
+        "type": "integer"
       }
     },
     "title": "screen_capture_dataArguments",

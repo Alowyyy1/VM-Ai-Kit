@@ -1,0 +1,15 @@
+{
+  "name": "ui_desktop_icons",
+  "description": "List desktop icons with exact screen coordinates (pos + clickable icon center).",
+  "parameters": {
+    "properties": {
+      "filter": {
+        "default": "",
+        "title": "Filter",
+        "type": "string"
+      }
+    },
+    "title": "ui_desktop_iconsArguments",
+    "type": "object"
+  }
+}

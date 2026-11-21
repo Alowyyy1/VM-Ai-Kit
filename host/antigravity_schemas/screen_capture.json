@@ -1,6 +1,6 @@
 {
   "name": "screen_capture",
-  "description": "Grab the screen as a PNG image (returned inline to the client).\n\n        monitor: 0 = all monitors, 1..N = one monitor (see screen_info).\n        region:  optional 'x,y,width,height' relative to the chosen monitor.\n        scale:   0.5 halves the resolution (fewer tokens), 2.0 zooms in.\n        ",
+  "description": "Grab the screen as a PNG image (returned inline to the client).\n\n        monitor: 0 = all monitors, 1..N = one monitor (see screen_info).\n        region:  optional 'x,y,width,height' relative to the chosen monitor.\n        scale:   0.5 halves the resolution (fewer tokens), 2.0 zooms in.\n        grid:    overlay a coordinate grid with physical pixel labels (step=grid_step).\n        ",
   "parameters": {
     "properties": {
       "monitor": {
@@ -17,6 +17,16 @@
         "default": 1.0,
         "title": "Scale",
         "type": "number"
+      },
+      "grid": {
+        "default": false,
+        "title": "Grid",
+        "type": "boolean"
+      },
+      "grid_step": {
+        "default": 100,
+        "title": "Grid Step",
+        "type": "integer"
       }
     },
     "title": "screen_captureArguments",

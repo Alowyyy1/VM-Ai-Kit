@@ -27,7 +27,44 @@ def _parse_region(region: str) -> tuple[int, int, int, int] | None:
     return x, y, w, h
 
 
-def _grab(cfg: Config, monitor: int, region: str, scale: float):
+def _draw_grid(img, step: int, box: dict[str, Any], scale: float):
+    from PIL import Image as PILImage, ImageDraw, ImageFont
+
+    step = max(25, int(step or 100))
+    base = img.convert("RGBA")
+    overlay = PILImage.new("RGBA", base.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+    font = ImageFont.load_default()
+
+    origin_x = int(box.get("left", 0))
+    origin_y = int(box.get("top", 0))
+    orig_w = int(box.get("width", int(img.width / scale)))
+    orig_h = int(box.get("height", int(img.height / scale)))
+
+    for ox in range(0, orig_w, step):
+        px = int(ox * scale)
+        if px >= base.width:
+            break
+        draw.line([(px, 0), (px, base.height)], fill=(255, 220, 40, 120), width=1)
+        if ox > 0:
+            label = str(origin_x + ox)
+            draw.rectangle([(px + 2, 2), (px + 2 + len(label) * 6 + 4, 15)], fill=(0, 0, 0, 180))
+            draw.text((px + 4, 3), label, fill=(255, 235, 80, 240), font=font)
+
+    for oy in range(0, orig_h, step):
+        py = int(oy * scale)
+        if py >= base.height:
+            break
+        draw.line([(0, py), (base.width, py)], fill=(255, 220, 40, 120), width=1)
+        if oy > 0:
+            label = str(origin_y + oy)
+            draw.rectangle([(2, py + 2), (2 + len(label) * 6 + 4, py + 15)], fill=(0, 0, 0, 180))
+            draw.text((4, py + 3), label, fill=(255, 235, 80, 240), font=font)
+
+    return PILImage.alpha_composite(base, overlay).convert("RGB")
+
+
+def _grab(cfg: Config, monitor: int, region: str, scale: float, grid: bool = False, grid_step: int = 100):
     import mss
     from PIL import Image as PILImage
 
@@ -53,6 +90,8 @@ def _grab(cfg: Config, monitor: int, region: str, scale: float):
         width = max(1, int(img.width * scale))
         height = max(1, int(img.height * scale))
         img = img.resize((width, height), PILImage.LANCZOS)
+    if grid:
+        img = _draw_grid(img, step=grid_step, box=box, scale=scale)
     return img, box
 
 
@@ -94,22 +133,25 @@ def register(mcp, cfg: Config) -> None:
         })
 
     @mcp.tool()
-    def screen_capture(monitor: int = 0, region: str = "", scale: float = 1.0) -> Image:
+    def screen_capture(monitor: int = 0, region: str = "", scale: float = 1.0,
+                       grid: bool = False, grid_step: int = 100) -> Image:
         """Grab the screen as a PNG image (returned inline to the client).
 
         monitor: 0 = all monitors, 1..N = one monitor (see screen_info).
         region:  optional 'x,y,width,height' relative to the chosen monitor.
         scale:   0.5 halves the resolution (fewer tokens), 2.0 zooms in.
+        grid:    overlay a coordinate grid with physical pixel labels (step=grid_step).
         """
-        img, box = _grab(cfg, monitor, region, scale)
+        img, box = _grab(cfg, monitor, region, scale, grid=grid, grid_step=grid_step)
         path = _save(cfg, img)
         return Image(path=str(path))
 
     @mcp.tool()
     def screen_capture_data(monitor: int = 0, region: str = "", scale: float = 1.0,
-                            include_base64: bool = True) -> str:
+                            include_base64: bool = True,
+                            grid: bool = False, grid_step: int = 100) -> str:
         """Same as screen_capture but returns JSON (saved path, size, base64) - use for automation."""
-        img, box = _grab(cfg, monitor, region, scale)
+        img, box = _grab(cfg, monitor, region, scale, grid=grid, grid_step=grid_step)
         path = _save(cfg, img)
         result: dict[str, Any] = {
             "path": str(path),
@@ -214,3 +256,70 @@ def register(mcp, cfg: Config) -> None:
         """Post WM_CLOSE to a window (graceful close)."""
         winapi.close_window(hwnd)
         return j({"hwnd": hwnd, "close_sent": True})
+
+    @mcp.tool()
+    def ui_desktop_icons(filter: str = "") -> str:
+        """List desktop icons with exact screen coordinates (pos + clickable icon center)."""
+        import ctypes
+        import ctypes.wintypes as w
+
+        u32 = ctypes.windll.user32
+        k32 = ctypes.windll.kernel32
+        lv = 0
+        pm = u32.FindWindowW("Progman", None)
+        sv = u32.FindWindowExW(pm, 0, "SHELLDLL_DefView", None)
+        if sv:
+            lv = u32.FindWindowExW(sv, 0, "SysListView32", None)
+        if not lv:
+            @ctypes.WINFUNCTYPE(w.BOOL, w.HWND, w.LPARAM)
+            def _cb(h, _lp):
+                nonlocal lv
+                s = u32.FindWindowExW(h, 0, "SHELLDLL_DefView", None)
+                if s:
+                    lv = u32.FindWindowExW(s, 0, "SysListView32", None)
+                    return False
+                return True
+            u32.EnumWindows(_cb, 0)
+        if not lv:
+            raise AgentError("Desktop SysListView32 window not found")
+
+        cnt = u32.SendMessageW(lv, 0x1004, 0, 0)  # LVM_GETITEMCOUNT
+        pid = w.DWORD()
+        u32.GetWindowThreadProcessId(lv, ctypes.byref(pid))
+        hp = k32.OpenProcess(0x001F0FFF, False, pid.value)
+        if not hp:
+            raise AgentError("Failed to open explorer.exe process for desktop icon coordinates")
+
+        class _LVITEMW(ctypes.Structure):
+            _fields_ = [
+                ("mask", w.UINT), ("iItem", ctypes.c_int), ("iSubItem", ctypes.c_int),
+                ("state", w.UINT), ("stateMask", w.UINT), ("pszText", ctypes.c_void_p),
+                ("cchTextMax", ctypes.c_int), ("iImage", ctypes.c_int), ("lParam", w.LPARAM),
+            ]
+
+        buf = k32.VirtualAllocEx(hp, 0, 4096, 0x3000, 0x04)
+        icons = []
+        try:
+            pt = w.POINT()
+            needle = (filter or "").lower()
+            for i in range(cnt):
+                u32.SendMessageW(lv, 0x1010, i, buf)  # LVM_GETITEMPOSITION
+                k32.ReadProcessMemory(hp, buf, ctypes.byref(pt), ctypes.sizeof(pt), None)
+                lvi = _LVITEMW(mask=1, iItem=i, pszText=buf + 256, cchTextMax=260)
+                k32.WriteProcessMemory(hp, buf + 64, ctypes.byref(lvi), ctypes.sizeof(lvi), None)
+                u32.SendMessageW(lv, 0x104B, i, buf + 64)  # LVM_GETITEMTEXTW
+                txt = ctypes.create_unicode_buffer(260)
+                k32.ReadProcessMemory(hp, buf + 256, txt, 520, None)
+                name = txt.value
+                if needle and needle not in name.lower():
+                    continue
+                icons.append({
+                    "index": i,
+                    "name": name,
+                    "pos": [int(pt.x), int(pt.y)],
+                    "center": [int(pt.x) + 24, int(pt.y) + 24],
+                })
+        finally:
+            k32.VirtualFreeEx(hp, buf, 0, 0x8000)
+            k32.CloseHandle(hp)
+        return j({"count": len(icons), "icons": icons})
