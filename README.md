@@ -52,7 +52,7 @@ Communication is multiplexed over a single network boundary:
 
 ### Step 1: Virtual Machine Setup
 
-1. Copy the `VM_Part` files (or extract `VM_Part.zip`) into the Windows Virtual Machine.
+1. Copy the repository contents into the Windows machine (or `git clone` it).
 2. Right-click `INSTALL_AND_START.bat` and select "Run as Administrator".
 3. The script will automatically:
    - Add the kit directory to Windows Defender exclusions.
@@ -96,7 +96,7 @@ On the host machine, run the appropriate batch script from the `host` directory:
 
 ---
 
-## MCP Tool Reference (95 Tools)
+## MCP Tool Reference (103 Tools)
 
 ### Static Analysis and Decompilation
 - `die_scan(path, deep=True, show_entropy=False, timeout=60)`: Scans with Detect It Easy; returns compiler, linker, packer, libraries, and section entropy.
@@ -109,6 +109,13 @@ On the host machine, run the appropriate batch script from the `host` directory:
 - `pe_disasm(path, offset=0, rva=0, count=30, bits=64)`: Capstone disassembly at raw offset or RVA.
 - `pe_entropy(path, offset=0, length=0)`: Computes Shannon entropy of files or slices.
 - `pe_hexdump(path, offset=0, length=256)`: Formatted hex and ASCII dump.
+
+### Traffic Debugger (mitmproxy)
+- `net_proxy_install_cert()`, `net_proxy_start(port=8080, web_ui=False, set_system_proxy=True)`, `net_proxy_stop()`, `net_proxy_status()`, `net_proxy_flows(limit, host_filter)`, `net_proxy_flow_detail(flow_id)`, `net_proxy_clear()`: capture and inspect HTTP/HTTPS traffic.
+
+### GUI Orientation
+- `screen_capture(..., grid=True, grid_step=100)`: screenshot with a labelled pixel grid.
+- `ui_desktop_icons(filter)`: exact coordinates of desktop icons.
 
 ### Debugging and Runtime Unpacking
 - `dbg_launch(path, args=[], suspend=True)`: Launches an executable inside x64dbg.
@@ -158,14 +165,14 @@ VM-Ai-Kit/
 │   ├── winapi.py              # Windows API bindings
 │   └── x64dbg.py              # x64dbg REST client
 ├── host/                      # Host machine setup and client configuration
-│   ├── host_config.json       # Connection details (port 37075, token)
+│   ├── host_config.example.json  # Template; installer creates host_config.json (git-ignored)
 │   ├── INSTALL_ALL.bat        # Configures Antigravity, OpenCode, and Codex
 │   ├── INSTALL_ANTIGRAVITY.bat
 │   ├── INSTALL_OPENCODE.bat
 │   ├── INSTALL_CODEX.bat
 │   ├── TEST_CONNECTION.bat    # Tests connection to VM /healthz
 │   ├── SET_IP_AND_TOKEN.bat   # Interactive IP and token updater
-│   └── antigravity_schemas/   # 95 JSON tool schemas for Antigravity
+│   └── antigravity_schemas/   # 103 JSON tool schemas for Antigravity
 ├── scripts/                   # Debugger scripts and snapshot guides
 ├── config/                    # Default and example agent configurations
 ├── install-vm.ps1             # Main VM installer script (PowerShell)

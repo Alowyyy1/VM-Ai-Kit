@@ -11,7 +11,7 @@
 param(
     [string]$InstallDir = "C:\AgentKit",
     [int]$Port = 37075,
-    [string]$Token = "vm_agent_token_980154022847733770_re",
+    [string]$Token = "",
     [string]$BindAddress = "0.0.0.0",
     [string]$FirewallRemote = "LocalSubnet",
     [switch]$Autostart = $true,

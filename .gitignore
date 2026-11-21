@@ -23,3 +23,13 @@ cache/
 *.log
 _out*.txt
 .tmp/
+
+# Local secrets / per-machine config (use the *.example.json templates)
+/config/agent.json
+/host/host_config.json
+
+# Editor / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

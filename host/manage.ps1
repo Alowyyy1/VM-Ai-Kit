@@ -20,13 +20,17 @@ function Write-Utf8NoBom([string]$Path, [string]$Content) {
 }
 
 function Load-HostConfig {
+    $example = Join-Path $HostDir "host_config.example.json"
+    if (-not (Test-Path -LiteralPath $CfgPath) -and (Test-Path -LiteralPath $example)) {
+        Copy-Item -LiteralPath $example -Destination $CfgPath
+    }
     if (Test-Path -LiteralPath $CfgPath) {
         return Get-Content -LiteralPath $CfgPath -Raw -Encoding UTF8 | ConvertFrom-Json
     }
     return [pscustomobject]@{
         vm_ip   = "192.168.1.100"
         vm_port = 37075
-        token   = "vm_agent_token_980154022847733770_re"
+        token   = ""
     }
 }
 

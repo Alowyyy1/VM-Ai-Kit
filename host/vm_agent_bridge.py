@@ -23,8 +23,8 @@ def load_config() -> dict:
             pass
     return {
         "vm_ip": os.environ.get("VM_AGENT_HOST", "127.0.0.1"),
-        "vm_port": int(os.environ.get("VM_AGENT_PORT", "8765")),
-        "token": os.environ.get("VM_AGENT_TOKEN", "vm_agent_token_980154022847733770_re"),
+        "vm_port": int(os.environ.get("VM_AGENT_PORT", "37075")),
+        "token": os.environ.get("VM_AGENT_TOKEN", ""),
     }
 
 def main():
@@ -34,7 +34,7 @@ def main():
     args = parser.parse_args()
 
     cfg = load_config()
-    vm_url = args.url or f"http://{cfg.get('vm_ip', '127.0.0.1')}:{cfg.get('vm_port', 8765)}/mcp"
+    vm_url = args.url or f"http://{cfg.get('vm_ip', '127.0.0.1')}:{cfg.get('vm_port', 37075)}/mcp"
     token = args.token or cfg.get("token", "")
 
     # Check connection

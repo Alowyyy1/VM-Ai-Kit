@@ -1,7 +1,7 @@
 {
   "host": "0.0.0.0",
   "port": 37075,
-  "token": "vm_agent_token_980154022847733770_re",
+  "token": "CHANGE_ME_installer_generates_a_token",
   "stateless": true,
   "work_dir": "C:\\AgentKit\\work",
   "tools_dir": "C:\\AgentKit\\tools\\bin",

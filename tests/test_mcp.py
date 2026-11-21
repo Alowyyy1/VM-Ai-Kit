@@ -1,7 +1,7 @@
 """Smoke test for a running AgentKit bridge.
 
 Usage:
-    python test_mcp.py --url http://127.0.0.1:8765/mcp --token <token>
+    python test_mcp.py --url http://127.0.0.1:37075/mcp --token <token>
     python test_mcp.py --url ... --token ... --full      # also screenshot + shell + pe_info
 """
 from __future__ import annotations
@@ -52,7 +52,7 @@ async def run(url: str, token: str, full: bool) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--url", default="http://127.0.0.1:8765/mcp")
+    parser.add_argument("--url", default="http://127.0.0.1:37075/mcp")
     parser.add_argument("--token", required=True)
     parser.add_argument("--full", action="store_true")
     args = parser.parse_args()

@@ -42,20 +42,20 @@
 ---
 
 ## 🛠️ Содержимое Host Part
-- `host_config.json` — конфигурация IP, порта (37075) и токена доступа.
+- `host_config.json` — IP, порт (37075) и токен (создаётся из `host_config.example.json`, не коммитится).
 - `INSTALL_ALL.bat` — универсальный инсталлятор для всех сред.
 - `INSTALL_ANTIGRAVITY.bat` — инсталлятор для Antigravity.
 - `INSTALL_OPENCODE.bat` — инсталлятор для OpenCode.
 - `INSTALL_CODEX.bat` — инсталлятор для Codex.
 - `SET_IP_AND_TOKEN.bat` — утилита быстрой смены IP/токена.
 - `TEST_CONNECTION.bat` — проверка здоровья агента на виртуалке (`/healthz`).
-- `antigravity_schemas/` — 95 готовых JSON-схем инструментов для мгновенной интеграции.
+- `antigravity_schemas/` — 103 готовых JSON-схем инструментов для мгновенной интеграции.
 - `vm_agent_bridge.py` — stdio мост для клиентов, не поддерживающих прямое HTTP-подключение.
 - `port-forward.md` — подробное руководство по сетевым настройкам.
 
 ---
 
-## 🔑 Доступные инструменты (95 инструментов)
+## 🔑 Доступные инструменты (103 инструментов)
 - **Декомпиляция в C# псевдокод**:
   - `decompile_dotnet` — dnSpy.Console декомпиляция .NET сборок в читаемый C# код.
   - `go_symbols` — GoReSym восстановление символов, структур и путей из Go бинарников.
