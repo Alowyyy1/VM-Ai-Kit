@@ -1,0 +1,35 @@
+{
+  "name": "net_proxy_flows",
+  "description": "List recent captured HTTP/HTTPS flows with optional host, method, status, or substring filter.",
+  "parameters": {
+    "properties": {
+      "limit": {
+        "default": 50,
+        "title": "Limit",
+        "type": "integer"
+      },
+      "host_filter": {
+        "default": "",
+        "title": "Host Filter",
+        "type": "string"
+      },
+      "method": {
+        "default": "",
+        "title": "Method",
+        "type": "string"
+      },
+      "status_code": {
+        "default": 0,
+        "title": "Status Code",
+        "type": "integer"
+      },
+      "search": {
+        "default": "",
+        "title": "Search",
+        "type": "string"
+      }
+    },
+    "title": "net_proxy_flowsArguments",
+    "type": "object"
+  }
+}

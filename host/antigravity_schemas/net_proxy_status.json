@@ -1,0 +1,9 @@
+{
+  "name": "net_proxy_status",
+  "description": "Return status of MITM proxy, captured flow count, CA cert path, and Windows WinINET proxy state.",
+  "parameters": {
+    "properties": {},
+    "title": "net_proxy_statusArguments",
+    "type": "object"
+  }
+}

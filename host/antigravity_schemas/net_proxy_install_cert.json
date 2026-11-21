@@ -1,0 +1,9 @@
+{
+  "name": "net_proxy_install_cert",
+  "description": "Generate mitmproxy CA certificate into work/proxy/certs (ASCII-safe) and install it into Windows Trusted Root.",
+  "parameters": {
+    "properties": {},
+    "title": "net_proxy_install_certArguments",
+    "type": "object"
+  }
+}

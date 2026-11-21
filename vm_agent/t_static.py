@@ -1,7 +1,9 @@
 """Static analysis tools: PE parsing, strings, AOB search, entropy, disassembly, external tools."""
 from __future__ import annotations
 
+import asyncio
 import subprocess
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -113,7 +115,7 @@ def register(mcp, cfg: Config) -> None:
         return j(pe.hexdump(path, offset=offset, length=length))
 
     @mcp.tool()
-    def die_scan(path: str, deep: bool = True, show_entropy: bool = False, timeout: float = 60) -> str:
+    async def die_scan(path: str, deep: bool = True, show_entropy: bool = False, timeout: float = 60) -> str:
         """Scan a binary with Detect It Easy (DIE) to identify compiler, linker, packer, protector,
         language, libraries, and optionally section entropy."""
         import json
@@ -125,7 +127,7 @@ def register(mcp, cfg: Config) -> None:
         if deep:
             argv.append("-d")
         argv.append(str(target))
-        res = _run_external(exe, argv, timeout=timeout)
+        res = await asyncio.to_thread(_run_external, exe, argv, timeout=timeout)
         parsed = {}
         try:
             parsed = json.loads(res["stdout"]) if res["stdout"].strip() else {}
@@ -133,7 +135,7 @@ def register(mcp, cfg: Config) -> None:
             parsed = {"raw": res["stdout"]}
 
         if show_entropy:
-            ent_res = _run_external(exe, ["-j", "-e", str(target)], timeout=timeout)
+            ent_res = await asyncio.to_thread(_run_external, exe, ["-j", "-e", str(target)], timeout=timeout)
             try:
                 parsed["entropy"] = json.loads(ent_res["stdout"])
             except Exception:
@@ -141,7 +143,7 @@ def register(mcp, cfg: Config) -> None:
         return j({"path": str(target), "result": parsed, "exit_code": res["exit_code"]})
 
     @mcp.tool()
-    def capa_scan(path: str, timeout: float = 300, json_format: bool = True) -> str:
+    async def capa_scan(path: str, timeout: float = 300, json_format: bool = True) -> str:
         """Analyze binary capabilities with Mandiant capa using bundled 1,000+ rules."""
         import json
         exe = _resolve_tool(cfg, "capa")
@@ -155,7 +157,7 @@ def register(mcp, cfg: Config) -> None:
         if json_format:
             argv.append("-j")
         argv.append(str(target))
-        res = _run_external(exe, argv, timeout=timeout)
+        res = await asyncio.to_thread(_run_external, exe, argv, timeout=timeout)
         parsed = None
         if json_format and res["stdout"].strip():
             try:
@@ -169,7 +171,7 @@ def register(mcp, cfg: Config) -> None:
         })
 
     @mcp.tool()
-    def decompile_dotnet(path: str, type_name: str = "", output_dir: str = "", timeout: float = 180) -> str:
+    async def decompile_dotnet(path: str, type_name: str = "", output_dir: str = "", timeout: float = 180) -> str:
         """Decompile .NET assemblies (C#/VB/IL) to C# pseudocode using dnSpy.Console.
         Pass type_name to decompile a specific class to stdout, or output_dir to export the entire project."""
         exe = _resolve_tool(cfg, "dnspy")
@@ -184,7 +186,7 @@ def register(mcp, cfg: Config) -> None:
         if type_name:
             argv += ["-t", type_name]
         argv.append(str(target))
-        res = _run_external(exe, argv, timeout=timeout)
+        res = await asyncio.to_thread(_run_external, exe, argv, timeout=timeout)
         return j({
             "path": str(target),
             "output_dir": output_dir or None,
@@ -194,7 +196,7 @@ def register(mcp, cfg: Config) -> None:
         })
 
     @mcp.tool()
-    def scan_memory_hollows(pid: int = 0, timeout: float = 120) -> str:
+    async def scan_memory_hollows(pid: int = 0, timeout: float = 120) -> str:
         """Scan running process memory for Process Hollowing, injected code, hooks, or unpacked payloads
         using pe-sieve (if pid specified) or hollows_hunter (all processes)."""
         if pid:
@@ -203,7 +205,7 @@ def register(mcp, cfg: Config) -> None:
         else:
             exe = _resolve_tool(cfg, "hollowshunter")
             argv = ["/json"]
-        res = _run_external(exe, argv, timeout=timeout)
+        res = await asyncio.to_thread(_run_external, exe, argv, timeout=timeout)
         return j({
             "target": f"PID {pid}" if pid else "all processes",
             "stdout": res["stdout"],
@@ -211,13 +213,13 @@ def register(mcp, cfg: Config) -> None:
         })
 
     @mcp.tool()
-    def go_symbols(path: str, timeout: float = 60) -> str:
+    async def go_symbols(path: str, timeout: float = 60) -> str:
         """Extract Go language symbols, packages, functions, and types from stripped Go binaries using GoReSym."""
         exe = _resolve_tool(cfg, "goresym")
         target = norm_path(path)
         if not target.is_file():
             raise AgentError(f"file not found: {path}")
-        res = _run_external(exe, [str(target)], timeout=timeout)
+        res = await asyncio.to_thread(_run_external, exe, [str(target)], timeout=timeout)
         return j({
             "path": str(target),
             "stdout": res["stdout"],
@@ -252,6 +254,10 @@ def register(mcp, cfg: Config) -> None:
             Path(cfg.x64dbg_dir) / "x32" / "plugins" / "ScyllaHide.dp32",
         ])
 
+        py_dir = Path(sys.executable).resolve().parent
+        mitmdump_p, mitmdump_ok, mitmdump_sz = _find_file([py_dir / "mitmdump.exe", py_dir / "Scripts" / "mitmdump.exe"])
+        mitmweb_p, mitmweb_ok, mitmweb_sz = _find_file([py_dir / "mitmweb.exe", py_dir / "Scripts" / "mitmweb.exe"])
+
         extra = [
             ("x64dbg x64", Path(cfg.x64dbg_dir) / "x64" / "x64dbg.exe"),
             ("x64dbg x32", Path(cfg.x64dbg_dir) / "x32" / "x32dbg.exe"),
@@ -260,6 +266,8 @@ def register(mcp, cfg: Config) -> None:
             ("ScyllaHide x64", scylla_x64_p, scylla_x64_ok, scylla_x64_sz),
             ("ScyllaHide x32", scylla_x32_p, scylla_x32_ok, scylla_x32_sz),
             ("Scylla", Path(cfg.tools_dir) / "scylla" / "Scylla_x64.exe"),
+            ("mitmdump", mitmdump_p, mitmdump_ok, mitmdump_sz),
+            ("mitmweb", mitmweb_p, mitmweb_ok, mitmweb_sz),
         ]
         for item in extra:
             if len(item) == 4:
@@ -272,7 +280,7 @@ def register(mcp, cfg: Config) -> None:
         return j({"tools_dir": cfg.tools_dir, "tools": rows})
 
     @mcp.tool()
-    def tool_run(tool: str, args: list[str] | None = None, timeout: float = 300) -> str:
+    async def tool_run(tool: str, args: list[str] | None = None, timeout: float = 300) -> str:
         """Run a bundled CLI tool (die, capa, strings, procdump, handle) with argument list.
 
         Example: tool_run("die", ["-j", "C:\\\\samples\\\\a.dll"])
@@ -284,7 +292,8 @@ def register(mcp, cfg: Config) -> None:
         if exe.name.lower() == "capa.exe" and rules.is_dir() and "-r" not in argv \
                 and "--rules" not in argv:
             argv = ["-r", str(rules)] + argv
-        return j(_run_external(exe, argv, timeout=float(timeout)))
+        res = await asyncio.to_thread(_run_external, exe, argv, timeout=float(timeout))
+        return j(res)
 
     @mcp.tool()
     def tool_gui(tool: str, args: list[str] | None = None) -> str:

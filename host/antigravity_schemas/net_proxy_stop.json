@@ -1,0 +1,15 @@
+{
+  "name": "net_proxy_stop",
+  "description": "Stop the MITM traffic debugger and restore Windows system proxy settings.",
+  "parameters": {
+    "properties": {
+      "restore_system_proxy": {
+        "default": true,
+        "title": "Restore System Proxy",
+        "type": "boolean"
+      }
+    },
+    "title": "net_proxy_stopArguments",
+    "type": "object"
+  }
+}

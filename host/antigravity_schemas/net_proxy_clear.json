@@ -1,0 +1,9 @@
+{
+  "name": "net_proxy_clear",
+  "description": "Clear all captured HTTP/HTTPS flows from work/proxy/flows.jsonl.",
+  "parameters": {
+    "properties": {},
+    "title": "net_proxy_clearArguments",
+    "type": "object"
+  }
+}

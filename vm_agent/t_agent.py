@@ -77,14 +77,43 @@ def register(mcp, cfg: Config) -> None:
         except AgentError as exc:
             add("x64dbg_x32", False, str(exc))
 
+        scylla_x64 = next(
+            (p for p in (
+                Path(cfg.x64dbg_dir) / "x64" / "plugins" / "ScyllaHideX64DBGPlugin.dp64",
+                Path(cfg.x64dbg_dir) / "x64" / "plugins" / "ScyllaHide.dp64",
+            ) if p.is_file()),
+            Path(cfg.x64dbg_dir) / "x64" / "plugins" / "ScyllaHideX64DBGPlugin.dp64",
+        )
+        scylla_x32 = next(
+            (p for p in (
+                Path(cfg.x64dbg_dir) / "x32" / "plugins" / "ScyllaHideX64DBGPlugin.dp32",
+                Path(cfg.x64dbg_dir) / "x32" / "plugins" / "ScyllaHide.dp32",
+            ) if p.is_file()),
+            Path(cfg.x64dbg_dir) / "x32" / "plugins" / "ScyllaHideX64DBGPlugin.dp32",
+        )
+        py_dir = Path(sys.executable).resolve().parent
+        mitmdump_exe = next(
+            (p for p in (py_dir / "mitmdump.exe", py_dir / "Scripts" / "mitmdump.exe") if p.is_file()),
+            py_dir / "mitmdump.exe",
+        )
+
         for label, path in [
             ("plugin_dp64", Path(cfg.x64dbg_dir) / "x64" / "plugins" / "x64dbg_mcp.dp64"),
             ("plugin_dp32", Path(cfg.x64dbg_dir) / "x32" / "plugins" / "x64dbg_mcp.dp32"),
-            ("scyllahide_x64", Path(cfg.x64dbg_dir) / "x64" / "plugins" / "ScyllaHide.dp64"),
+            ("scyllahide_x64", scylla_x64),
+            ("scyllahide_x32", scylla_x32),
             ("die", Path(cfg.tools_dir) / "die" / "diec.exe"),
             ("capa", Path(cfg.tools_dir) / "capa" / "capa.exe"),
             ("pebear", Path(cfg.tools_dir) / "pebear" / "PE-bear.exe"),
             ("scylla", Path(cfg.tools_dir) / "scylla" / "Scylla_x64.exe"),
+            ("pesieve", Path(cfg.tools_dir) / "pesieve" / "pe-sieve64.exe"),
+            ("hollowshunter", Path(cfg.tools_dir) / "pesieve" / "hollows_hunter64.exe"),
+            ("dnspy", Path(cfg.tools_dir) / "dnspy" / "dnSpy.Console.exe"),
+            ("rizin", Path(cfg.tools_dir) / "rizin" / "bin" / "rizin.exe"),
+            ("goresym", Path(cfg.tools_dir) / "goresym" / "GoReSym.exe"),
+            ("sysinternals", Path(cfg.tools_dir) / "sysinternals" / "strings64.exe"),
+            ("mitmdump", mitmdump_exe),
+            ("vc_redist", Path(r"C:\Windows\System32\vcruntime140.dll")),
         ]:
             add(label, path.is_file(), str(path), level="warn")
 
@@ -134,16 +163,17 @@ def register(mcp, cfg: Config) -> None:
 
     @mcp.tool()
     def agent_guide(topic: str = "overview") -> str:
-        """Cheat-sheet for driving this VM: overview | unpack | dota | transfer | screen."""
+        """Cheat-sheet for driving this VM: overview | unpack | dota | traffic | transfer | screen."""
         topic = (topic or "overview").lower()
         guides = {
             "overview": [
-                "Files: fs_* (fs_write_bytes with mode=patch + offset for chunked upload; fs_read_bytes for download).",
+                "Files: fs_* or direct HTTP GET /files/download?path=... and POST /files/upload?path=...",
                 "Shell: sys_exec(shell=cmd|powershell); long jobs -> sys_start(detached=true) or sys_exec with big timeout.",
                 "Screen: screen_capture (inline PNG) + input_click/input_type/input_key; win_list/win_focus to target windows.",
                 "Processes: sys_processes, proc_modules(pid) (module base addresses), sys_connections (phone-home).",
+                "Traffic: net_proxy_install_cert -> net_proxy_start -> net_proxy_flows -> net_proxy_flow_detail -> net_proxy_stop.",
                 "Debug: dbg_launch(target) -> dbg_status -> dbg_set_breakpoint -> dbg_run -> dbg_read_memory/dbg_dump_module.",
-                "Static: pe_info, pe_strings, pe_search, pe_disasm, tool_run(die|capa|strings).",
+                "Static: pe_info, pe_strings, pe_search, pe_disasm, die_scan, capa_scan, decompile_dotnet, go_symbols.",
                 "Anything not covered by the wrappers: dbg_api(method, path, body).",
             ],
             "unpack": [
@@ -161,10 +191,18 @@ def register(mcp, cfg: Config) -> None:
                 "The packer restores pages at runtime: dump after the module's entry point has executed.",
                 "Keep the VM isolated (host-only network) - the sample may phone home.",
             ],
+            "traffic": [
+                "1. First time on a clean system: net_proxy_install_cert() installs the mitmproxy Root CA into Trusted Root.",
+                "2. Start capture: net_proxy_start(port=8080, web_ui=False, set_system_proxy=True) sets WinINET proxy automatically.",
+                "3. Run the sample or make requests; use net_proxy_flows(limit=50, host_filter=...) to inspect captured traffic.",
+                "4. Inspect headers and payload: net_proxy_flow_detail(flow_id) decodes UTF-8 or returns base64.",
+                "5. Always finish with net_proxy_stop(restore_system_proxy=True) to cleanly disable the Windows proxy.",
+            ],
             "transfer": [
-                "Upload: read the file on the host, then fs_write_bytes(path, chunk_b64, mode='patch', offset=N) in <=3 MB chunks; last call passes expect_sha256.",
-                "Download: fs_read_bytes(path, offset, length<=4MB, format='base64') until next_offset is null.",
-                "Big archives: fs_zip on the VM, then download chunks; or expose a temporary HTTP server with sys_start('python', '-m http.server').",
+                "Fast HTTP upload: POST http://<vm>:37075/files/upload?path=C:\\temp\\file.bin (raw body + Bearer token).",
+                "Fast HTTP download: GET http://<vm>:37075/files/download?path=C:\\temp\\dump.dll (Bearer token).",
+                "MCP chunked upload: fs_write_bytes(path, chunk_b64, mode='patch', offset=N) in <=3 MB chunks; pass expect_sha256.",
+                "MCP chunked download: fs_read_bytes(path, offset, length<=4MB, format='base64') until next_offset is null.",
                 "Always verify with fs_hash(path,'sha256') on both sides.",
             ],
             "screen": [

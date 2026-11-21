@@ -22,11 +22,11 @@ from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
-from starlette.responses import JSONResponse
+from starlette.responses import FileResponse, JSONResponse
 
-from . import t_agent, t_dbg, t_files, t_static, t_system, t_ui
+from . import t_agent, t_dbg, t_files, t_net, t_static, t_system, t_ui
 from .config import AGENT_VERSION, Config, load_config
-from .util import AgentError
+from .util import AgentError, guard_path, sha256_file
 from . import winapi
 
 LOG = logging.getLogger("agentkit")
@@ -36,19 +36,25 @@ AgentKit - a Windows 10 VM driven over MCP. You are operating a real interactive
 actions have real side effects.
 
 Tool map:
-  sys_*     shell, processes, network, modules        (sys_exec, sys_powershell, sys_processes, proc_modules)
-  fs_*      files, chunked upload/download, zip, hash (fs_write_bytes mode=patch for chunks)
-  screen_*  screenshots as inline PNG, pixels, monitors
-  input_*   mouse/keyboard/clipboard injection
-  win_*     window enumeration, focus, move, close
-  dbg_*     x64dbg live debugging via the MCP plugin  (dbg_launch, dbg_set_breakpoint, dbg_run,
-            dbg_read_memory, dbg_dump_module, dbg_hide_debugger, dbg_api for anything else)
-  pe_*      static PE analysis (sections, imports, entropy, strings, AOB search, disassembly)
-  tool_*    bundled CLI tools: DIE, capa, Sysinternals strings/procdump/handle
+  sys_*       shell, processes, network, modules        (sys_exec, sys_powershell, sys_processes, proc_modules)
+  fs_*        files, chunked upload/download, zip, hash (fs_write_bytes mode=patch for chunks)
+  screen_*    screenshots as inline PNG, pixels, monitors
+  input_*     mouse/keyboard/clipboard injection
+  win_*       window enumeration, focus, move, close
+  dbg_*       x64dbg live debugging via the MCP plugin  (dbg_launch, dbg_set_breakpoint, dbg_run,
+              dbg_read_memory, dbg_dump_module, dbg_hide_debugger, dbg_api for anything else)
+  pe_*        static PE analysis (sections, imports, entropy, strings, AOB search, disassembly)
+  tool_*      bundled CLI tools: DIE, capa, Sysinternals strings/procdump/handle, dnSpy, rizin, GoReSym
+  net_proxy_* MITM HTTP/HTTPS traffic debugger backed by mitmproxy (start/stop/cert/flows/detail)
+
+Direct HTTP file endpoints (authenticated with Bearer token):
+  GET  /files/download?path=<path>  - stream a file directly from the VM
+  POST /files/upload?path=<path>    - stream raw request body directly to a file on the VM
 
 Start with agent_selftest() if the environment is unknown, and agent_guide() for workflows.
-Prefer small steps and verify with a screenshot or a file hash. Large transfers use 3 MB
-chunks. Never assume a GUI action landed - capture the screen afterwards.
+Prefer small steps and verify with a screenshot or a file hash. Large MCP transfers use 3 MB
+chunks, or use /files/download and /files/upload directly over HTTP. Never assume a GUI action
+landed - capture the screen afterwards.
 """
 
 
@@ -110,6 +116,7 @@ def build_app(cfg: Config) -> Starlette:
     t_ui.register(mcp, cfg)
     t_dbg.register(mcp, cfg)
     t_static.register(mcp, cfg)
+    t_net.register(mcp, cfg)
     t_agent.register(mcp, cfg)
 
     @mcp.custom_route("/healthz", methods=["GET"])
@@ -123,6 +130,36 @@ def build_app(cfg: Config) -> Starlette:
             "session": winapi.session_id(),
             "elevated": winapi.is_elevated(),
             "uptime_s": int(time.time() - _STARTED),
+        })
+
+    @mcp.custom_route("/files/download", methods=["GET"])
+    async def files_download(request: Request):
+        raw_path = request.query_params.get("path", "")
+        try:
+            target = guard_path(cfg, raw_path)
+        except AgentError as exc:
+            return JSONResponse({"error": str(exc)}, status_code=403)
+        if not target.is_file():
+            return JSONResponse({"error": f"file not found: {target}"}, status_code=404)
+        return FileResponse(path=str(target), filename=target.name, media_type="application/octet-stream")
+
+    @mcp.custom_route("/files/upload", methods=["POST"])
+    async def files_upload(request: Request) -> JSONResponse:
+        raw_path = request.query_params.get("path", "")
+        try:
+            target = guard_path(cfg, raw_path, write=True)
+        except AgentError as exc:
+            return JSONResponse({"error": str(exc)}, status_code=403)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with target.open("wb") as fh:
+            async for chunk in request.stream():
+                if chunk:
+                    fh.write(chunk)
+        return JSONResponse({
+            "ok": True,
+            "path": str(target),
+            "size": target.stat().st_size,
+            "sha256": sha256_file(target),
         })
 
     inner = mcp.streamable_http_app()

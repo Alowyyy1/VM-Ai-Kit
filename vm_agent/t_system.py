@@ -1,6 +1,7 @@
 """System, shell and process tools."""
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 import platform
@@ -172,7 +173,7 @@ def register(mcp, cfg: Config) -> None:
 
     # ---------------------------------------------------------------- exec
     @mcp.tool()
-    def sys_exec(command: str, shell: str = "cmd", cwd: str | None = None,
+    async def sys_exec(command: str, shell: str = "cmd", cwd: str | None = None,
                  timeout: int = 120, stdin: str | None = None,
                  env: dict[str, str] | None = None) -> str:
         """Run a command and capture stdout/stderr/exit code.
@@ -181,13 +182,15 @@ def register(mcp, cfg: Config) -> None:
         process tree is killed and timed_out=true is returned.
         """
         timeout = max(1, min(int(timeout or cfg.exec_timeout_default), cfg.exec_timeout_max))
-        return j(_run(command, shell=shell, cwd=cwd, timeout=timeout, stdin=stdin, env=env))
+        res = await asyncio.to_thread(_run, command, shell=shell, cwd=cwd, timeout=timeout, stdin=stdin, env=env)
+        return j(res)
 
     @mcp.tool()
-    def sys_powershell(script: str, cwd: str | None = None, timeout: int = 300) -> str:
+    async def sys_powershell(script: str, cwd: str | None = None, timeout: int = 300) -> str:
         """Run a PowerShell script (multi-line is fine) with UTF-8 output."""
         timeout = max(1, min(int(timeout or cfg.exec_timeout_default), cfg.exec_timeout_max))
-        return j(_run(script, shell="powershell", cwd=cwd, timeout=timeout, stdin=None, env=None))
+        res = await asyncio.to_thread(_run, script, shell="powershell", cwd=cwd, timeout=timeout, stdin=None, env=None)
+        return j(res)
 
     @mcp.tool()
     def sys_start(path: str, args: str = "", cwd: str | None = None, hidden: bool = False,

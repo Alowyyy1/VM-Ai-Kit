@@ -1,0 +1,27 @@
+{
+  "name": "net_proxy_flow_detail",
+  "description": "Inspect full request/response headers and decoded body for a specific captured flow_id.",
+  "parameters": {
+    "properties": {
+      "flow_id": {
+        "title": "Flow Id",
+        "type": "string"
+      },
+      "include_body": {
+        "default": true,
+        "title": "Include Body",
+        "type": "boolean"
+      },
+      "max_body_bytes": {
+        "default": 16384,
+        "title": "Max Body Bytes",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "flow_id"
+    ],
+    "title": "net_proxy_flow_detailArguments",
+    "type": "object"
+  }
+}

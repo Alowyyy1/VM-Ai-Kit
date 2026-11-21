@@ -1,0 +1,35 @@
+{
+  "name": "net_proxy_start",
+  "description": "Start HTTP/HTTPS MITM traffic debugger (mitmdump/mitmweb) and optionally set Windows system proxy.",
+  "parameters": {
+    "properties": {
+      "port": {
+        "default": 8080,
+        "title": "Port",
+        "type": "integer"
+      },
+      "web_ui": {
+        "default": false,
+        "title": "Web Ui",
+        "type": "boolean"
+      },
+      "web_port": {
+        "default": 8081,
+        "title": "Web Port",
+        "type": "integer"
+      },
+      "set_system_proxy": {
+        "default": true,
+        "title": "Set System Proxy",
+        "type": "boolean"
+      },
+      "upstream": {
+        "default": "",
+        "title": "Upstream",
+        "type": "string"
+      }
+    },
+    "title": "net_proxy_startArguments",
+    "type": "object"
+  }
+}
