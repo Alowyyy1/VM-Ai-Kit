@@ -81,16 +81,22 @@ if (-not $SkipPython) {
 
     if (-not $pythonExe) {
         Write-Host "[*] Python 3.10+ not detected. Installing bundled Python 3.12..." -ForegroundColor Yellow
-        $installer = Join-Path $InstallDir "installers\python-3.12.10-amd64.exe"
-        if (-not (Test-Path $installer)) {
-            $installer = Join-Path $installer "python-3.12.10-amd64.exe"
-        }
-        if (Test-Path $installer) {
+        $cands = @(
+            (Join-Path $InstallDir "installers\python-3.12.10-amd64.exe"),
+            (Join-Path $InstallDir "installers\python-3.12.10-amd64.exe\python-3.12.10-amd64.exe")
+        )
+        $installer = $cands | Where-Object { Test-Path $_ -PathType Leaf } | Select-Object -First 1
+
+        if ($installer) {
+            Write-Host "[*] Running Python installer: $installer"
             Start-Process -FilePath $installer -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1 Include_pip=1" -Wait
             $env:Path = [Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [Environment]::GetEnvironmentVariable('Path','User')
             $pythonExe = "$env:ProgramFiles\Python312\python.exe"
+            if (-not (Test-Path $pythonExe)) {
+                $pythonExe = (Get-Command "python.exe" -ErrorAction SilentlyContinue).Source
+            }
         } else {
-            Write-Warning "Python installer not found at $installer. Please install Python manually."
+            Write-Warning "Python installer not found. Please install Python manually."
         }
     }
 }
@@ -196,6 +202,9 @@ $agentConfig = [ordered]@{
 }
 
 $agentConfig | ConvertTo-Json -Depth 5 | Set-Content $cfgFile -Encoding UTF8
+if ((Resolve-Path $Root).Path -ne (Resolve-Path $InstallDir -ErrorAction SilentlyContinue).Path) {
+    $agentConfig | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $Root "agent.json") -Encoding UTF8 -ErrorAction SilentlyContinue
+}
 Write-Host "[+] Agent configuration written to $cfgFile" -ForegroundColor Green
 
 # 9. Firewall configuration

@@ -10,15 +10,15 @@ param(
 )
 
 $Root = $PSScriptRoot
-$cfgFile = if (Test-Path "$Root\agent.json") { "$Root\agent.json" } else { "$Root\config\agent.json" }
+$cfgFile = if (Test-Path "$Root\agent.json") { "$Root\agent.json" } elseif (Test-Path "C:\AgentKit\agent.json") { "C:\AgentKit\agent.json" } else { "$Root\config\agent.json" }
 if (-not (Test-Path $cfgFile)) {
-    Write-Warning "agent.json not found in $Root. Run install-vm.ps1 first."
+    Write-Warning "agent.json not found in $Root or C:\AgentKit. Run install-vm.ps1 first."
     return
 }
 
 $cfg = Get-Content $cfgFile -Raw | ConvertFrom-Json
 $port = $cfg.port
-$py = if (Test-Path "$Root\venv\Scripts\python.exe") { "$Root\venv\Scripts\python.exe" } else { "python.exe" }
+$py = if (Test-Path "$Root\venv\Scripts\python.exe") { "$Root\venv\Scripts\python.exe" } elseif (Test-Path "C:\AgentKit\venv\Scripts\python.exe") { "C:\AgentKit\venv\Scripts\python.exe" } else { "python.exe" }
 
 # Check if already running
 try {
