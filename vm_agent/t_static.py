@@ -31,6 +31,8 @@ EXTERNAL_TOOLS = {
     "rizin": ("rizin/bin", "rizin.exe"),
     "rz-bin": ("rizin/bin", "rz-bin.exe"),
     "goresym": ("goresym", "GoReSym.exe"),
+    "ida": ("ida", "ida.exe"),
+    "idat": ("ida", "idat.exe"),
 }
 
 
